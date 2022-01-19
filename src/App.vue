@@ -1,32 +1,35 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
+  
+  <b-navbar toggleable="lg" type="dark" variant="dark">
+    <b-navbar-brand href="#">ToWrite</b-navbar-brand>
+
+    <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+
+    <b-collapse id="nav-collapse" is-nav>
+      <b-navbar-nav>
+        <b-nav-item to="/">Texts</b-nav-item>
+        <b-nav-item to="/form">Write</b-nav-item>
+      </b-navbar-nav>
+    </b-collapse>
+  </b-navbar>
+  
+  <transition name="fade" mode="out-in">
     <router-view/>
+  </transition>
   </div>
 </template>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+
+.fade-enter-active, .fade-leave-active{
+  transition-duration: 0.2s;
+  transition-property: opacity;
+  transition-timing-function: ease;
 }
 
-#nav {
-  padding: 30px;
+.fade-enter, .fade-leave {
+  opacity: 0;
 }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
 </style>
