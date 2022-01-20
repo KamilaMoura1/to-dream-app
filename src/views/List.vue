@@ -12,12 +12,36 @@
     </template>
 
     <template v-else>
-        <div v-for="(task, index) in tasks" :key="index">
-            <b-card :title="task.subject" class="mb-2">
+        <div v-for="(task) in tasks" :key="task.id">
+            <b-card 
+            :title="task.subject" 
+            class="mb-2"
+            :class=" { 'finished-task':isFinished(task) } ">
                 <b-card-text>{{ task.description }}</b-card-text>
 
-                <b-button variant="outline-secondary" class="mr-2" @click="edit(index)"> Editar </b-button>
-                <b-button variant="outline-danger" class="mr-2" @click="remove(task, index)"> Excluir </b-button>
+                <b-button 
+                variant="outline-secondary" 
+                class="mr-2" 
+                @click="updateStatus(task.id, status.FINISHED)"
+                > Concluir </b-button>
+
+                <b-button 
+                variant="outline-secondary" 
+                class="mr-2" 
+                @click="updateStatus(task.id, status.ARCHIVED)"
+                > Arquivar </b-button>
+
+                <b-button 
+                variant="outline-secondary" 
+                class="mr-2" 
+                @click="edit(task.id)"
+                > Editar </b-button>
+
+                <b-button
+                 variant="outline-danger" 
+                 class="mr-2" 
+                 @click="remove(task.id)"
+                 > Excluir </b-button>
             </b-card>
         </div>
     </template>
@@ -37,30 +61,39 @@
 
 <script>
 import TasksModel from "@/models/TasksModel"
+import Status from "@/valueObjects/status"
+import ToastMixin from "@/mixins/toastMixin.js"
 
 export default {
   name: "List",
 
+  mixins: [ToastMixin], 
+
   data() {
     return {
       tasks: [],
-      taskSelected: []
-    }
+      taskSelected: [],
+      status: Status
+    };
   },
 
   async created() {
-    this.tasks = await TasksModel.get(); 
+    this.tasks = await TasksModel.params ({
+      status: [
+        this.status.OPEN,
+        this.status.FINISHED,
+      ]
+    }).get();
     
   },
 
   methods: {
-    edit(index) {
-      this.$router.push({ name: "form", params: { index } });
+    edit(taskId) {
+      this.$router.push({ name: "form", params: { taskId } });
     },
 
-    remove(task, index) { 
-      this.taskSelected = task;
-      this.taskSelected.index = index;
+    async remove(taskId) { 
+      this.taskSelected = await TasksModel.find(taskId)
       this.$refs.modalRemove.show();
     },
 
@@ -68,11 +101,37 @@ export default {
       this.$refs.modalRemove.hide();
     },
 
-    confirmRemoveTask() {
-      this.tasks.splice(this.taskSelected.index, 1);
-      localStorage.setItem("tasks", JSON.stringify(this.tasks));
+    async confirmRemoveTask() {
+      this.taskSelected.delete();
+      this.tasks = await TasksModel.params ({
+      status: [
+        this.status.OPEN,
+        this.status.FINISHED,
+      ]
+    }).get();
       this.hideModal();
+    },
+
+    async updateStatus(taskId, status){
+    let task = await TasksModel.find(taskId);
+    task.status = status;
+    await task.save();
+
+    this.tasks = await TasksModel.params ({
+      status: [
+        this.status.OPEN,
+        this.status.FINISHED,
+      ]
+    }).get();
+
+    this.showToast("success", "Sucesso!", "Status da tarefa atualizado com sucesso!")
+  },
+
+  isFinished(task){
+    return task.status === this.status.FINISHED
+     
     }
+
   }, 
 
   computed: {
@@ -96,5 +155,14 @@ export default {
     .empty-data-image {
         width: 300px;
         height: 300px;
+    }
+
+    .finished-task {
+      opacity: 0.7;
+
+    }
+
+    .finished-task > .card-body > h4, .finished-task > .card-body > p {
+      text-decoration: line-through;
     }
 </style>

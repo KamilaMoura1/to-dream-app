@@ -5,7 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "backend": "npx json-server --watch db.json"
+    "backend": "json-server --watch db.json"
   },
   "dependencies": {
     "axios": "^0.25.0",

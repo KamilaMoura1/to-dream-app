@@ -33,11 +33,21 @@
         ></b-form-textarea>
       </b-form-group>
 
+      <b-form-group
+        label="Status"
+        label-for="status"
+      >
+        <b-form-select
+          id="status"
+          v-model="form.status"
+          :options = "optionsList"
+        ></b-form-select>
+      </b-form-group>
+
       <b-button 
         type="submit" 
         variant="outline-primary" 
         @click="saveTask"
-        :disabled="!getValidation"
         > Salvar </b-button>
     </b-form>
   </div>
@@ -46,6 +56,8 @@
 <script>
 import ToastMixin from "@/mixins/toastMixin.js";
 import  { required, minLength } from "vuelidate/lib/validators";
+import TasksModel from "@/models/TasksModel";
+import Status from "@/valueObjects/status"
 
 export default {
   name: "Form",
@@ -56,9 +68,16 @@ export default {
     return {
       form: {
         subject: "",
-        description: ""
+        description: "",
+        status: Status.OPEN
       },
-      methodSave: "new"
+      methodSave: "new",
+      optionsList: [
+        {value: Status.OPEN, text: "Aberto"},
+        {value: Status.FINISHED, text: "Concluido"},
+        {value: Status.ARCHIVED, text: "Arquivado"}
+
+      ]
     }
   },
 
@@ -71,28 +90,32 @@ export default {
       }
   },
 
-  created() {
-    if(this.$route.params.index === 0 || this.$route.params.index !== undefined){
+  async created() {
+    if(this.$route.params.taskId){
       this.methodSave = "update";
-      let tasks = JSON.parse(localStorage.getItem("tasks"));
-      this.form = tasks[this.$route.params.index];
+
+      this.form = await TasksModel.find(this.$route.params.taskId);
+
     }
   },
 
   methods: {
     saveTask() {
+      this.$v.$touch();
+      if(this.$v.$error) return
+      
+
       if(this.methodSave === "update"){
-        let tasks = JSON.parse(localStorage.getItem("tasks"));
-        tasks[this.$route.params.index] = this.form;
-        localStorage.setItem("tasks", JSON.stringify(tasks));
+        this.form.save()
+
         this.showToast("success", "Sucesso!", "Tarefa atualizada com suceso");
         this.$router.push({ name: "list" });
         return;
       }
-
-      let tasks = (localStorage.getItem("tasks")) ? JSON.parse(localStorage.getItem("tasks")) : [];
-      tasks.push(this.form);
-      localStorage.setItem("tasks", JSON.stringify(tasks));
+     
+     const task = new TasksModel (this.form);
+     task.save();
+     
       this.showToast("success", "Sucesso!", "Tarefa criada com suceso");
       this.$router.push({ name: "list" });
     }
