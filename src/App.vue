@@ -1,8 +1,8 @@
 <template>
   <div id="app">
   
-  <b-navbar toggleable="lg" type="dark" variant="dark">
-    <b-navbar-brand href="#">ToWrite</b-navbar-brand>
+  <b-navbar toggleable="lg" type="dark" variant="dark" v-if="notIsLoginPage">
+    <b-navbar-brand href="#">ToDream!</b-navbar-brand>
 
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -19,6 +19,16 @@
   </transition>
   </div>
 </template>
+
+<script>
+  export default {
+    computed: {
+      notIsLoginPage() {
+          return this.$route.name !== "login" && this.$route.name !== "register";
+      }
+    }
+  }
+</script>
 
 <style>
 

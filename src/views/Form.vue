@@ -44,11 +44,23 @@
         ></b-form-select>
       </b-form-group>
 
+      <b-form-group
+        label="Data de vencimento"
+        label-for="dateOverdue"
+      >
+        <b-form-datepicker
+          id="dateOverdue"
+          v-model="form.dateOverdue"
+          label-no-date-selected="Selecione uma data"
+          :min="getToday()"
+        ></b-form-datepicker>
+      </b-form-group>
+
       <b-button 
         type="submit" 
         variant="outline-primary" 
         @click="saveTask"
-        > Salvar </b-button>
+        > <i class="fas fa-save"></i>  Salvar </b-button>
     </b-form>
   </div>
 </template>
@@ -69,14 +81,14 @@ export default {
       form: {
         subject: "",
         description: "",
-        status: Status.OPEN
+        status: Status.OPEN,
+        dataOverdue : ""
       },
       methodSave: "new",
       optionsList: [
         {value: Status.OPEN, text: "Aberto"},
-        {value: Status.FINISHED, text: "Concluido"},
+        {value: Status.FINISHED, text: "Concluído"},
         {value: Status.ARCHIVED, text: "Arquivado"}
-
       ]
     }
   },
@@ -93,9 +105,7 @@ export default {
   async created() {
     if(this.$route.params.taskId){
       this.methodSave = "update";
-
       this.form = await TasksModel.find(this.$route.params.taskId);
-
     }
   },
 
@@ -104,7 +114,6 @@ export default {
       this.$v.$touch();
       if(this.$v.$error) return
       
-
       if(this.methodSave === "update"){
         this.form.save()
 
@@ -118,6 +127,10 @@ export default {
      
       this.showToast("success", "Sucesso!", "Tarefa criada com suceso");
       this.$router.push({ name: "list" });
+    },
+
+    getToday(){
+      return new Date().toISOString().split("T")[0];
     }
   },
 

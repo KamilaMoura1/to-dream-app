@@ -3,6 +3,8 @@ import VueRouter from 'vue-router'
 //import { component } from 'vue/types/umd'
 import Form from '../views/Form.vue'
 import List from '../views/List.vue'
+import Login from '../views/Login.vue'
+import Register from '../views/Register.vue'
 
 Vue.use(VueRouter)
 
@@ -17,6 +19,16 @@ const routes = [
     name: 'form',
     component: Form
   },
+  {
+    path: '/login',
+    name: 'login',
+    component: Login
+  },
+   {
+    path: '/register',
+    name: 'register',
+    component: Register
+  }
 ]
 
 const router = new VueRouter({
