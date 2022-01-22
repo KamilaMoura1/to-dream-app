@@ -33,7 +33,7 @@ PASSWORD: 123456
 | `JavaScript` |  Structured interpreted programming language |
 | `Node.js` | JavaScript code execution software |
 | `Git e GitHub` | Distributed version control systems |
-| `Bootstrap Vue` | Vector graphic editor and prototyping |
+| `Bootstrap Vue` | Framework for interface development |
 
 ## 4. Project Installation
 If you want to download the project to your desktop it is possible to create a fork of the repository and after that, you should perform a "clone" or "donwload" of the **link provided by your repository** then type in your terminal:
@@ -45,9 +45,9 @@ The repository will be completely downloaded on your machine.
 If you don't have Node.js installed, just click on this link [here](https://nodejs.org/en/download/) and download it, because to run it on your computer, you will need to perform the node modules folder installation, using NPM (native Node.js).
 
 ### Once the installation is complete, just type in your terminal:
-
-`npm install` 
-
+```
+npm install
+```
 And wait until the process is complete.
 
 ### Compiles and hot-reloads for development
