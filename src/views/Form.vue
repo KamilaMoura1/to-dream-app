@@ -57,7 +57,7 @@
           placeholder="Enter new tags separated by space"
         ></b-form-tags>
 
-      <b-button type="submit" variant="outline-primary" @click="saveTask">
+      <b-button type="submit" variant="outline-primary" @click="saveTask" class="btn-save">
         <i class="fas fa-save"></i> Save
       </b-button>
     </b-form>
@@ -146,4 +146,10 @@ export default {
   },
 };
 </script>
+<style>
 
+.btn-save{
+  margin: 30px
+}
+
+</style>

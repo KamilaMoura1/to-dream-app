@@ -1,6 +1,6 @@
 # toDream! app
 
-<div><a href="https://ibb.co/Tc2kB4z"><img src="https://i.ibb.co/CB8z5bx/image-6483441-1.jpg" alt="logo"></a></div>
+<div><a href="https://ibb.co/Tc2kB4z"><img src="https://i.ibb.co/Tc2kB4z/image-6483441-1.jpg" alt="logo"></a></div>
 
 * [1. Introduction](#1-Introduction)
 * [2. Interface Access](#2-Interface-access)

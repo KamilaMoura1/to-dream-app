@@ -5,20 +5,20 @@
         v-model="filter.subject"
         id="subject"
         placeholder="Event"
-        class="mr-2"
+        class="mr-2 btn-list"
         autocomplete="off"
       ></b-form-input>
 
       <b-form-select
         v-model="filter.status"
         :options="optionsList"
-        class="mr-2"
+        class="mr-2 btn-list"
       ></b-form-select>
 
       <b-button
         variant="outline-secondary"
         @click="filterTasks"
-        class="mr-3"
+        class="mr-3 btn-list"
         v-b-tooltip.hover
         title="Search"
         ><i class="fas fa-search"></i
@@ -27,7 +27,7 @@
       <b-button
         variant="outline-secondary"
         @click="clearFilter"
-        class="mr-3"
+        class="mr-3 btn-list"
         v-b-tooltip.hover
         title="Clean filter"
         ><i class="fas fa-times"></i
@@ -268,6 +268,9 @@ export default {
 </script>
 
 <style scoped>
+.btn-list{
+  margin: 10px;
+}
 .empty-data {
   display: flex;
   align-items: center;
