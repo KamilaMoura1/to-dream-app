@@ -10,15 +10,15 @@
 
 ## 1. Introduction
 
-Welcome to toDream! with this application you will be able to accomplish your goals!
+Welcome to "toDream!". With this application you will be able to accomplish your goals!
 
-The application toDream! was developed with Vue JS, in it the user can register, log in, put your goal and also TAGS and dream! Oops, get organized to achieve your goals.
+The application "toDream!" was developed with Vue JS. In it the user can register, log in, put their goal and also TAGS. And feel to dream! Oops, I mean, get organized to achieve your goals.
 
-The application database was developed through fake API.
+The application database was developed through a fake API.
 
 ## 2. Interface Access
 
-The application which can be viewed in this [Link](https://to-dream-app.vercel.app/).
+The application can be viewed in this [Link](https://to-dream-app.vercel.app/).
 
 LOGIN: teste123@teste.com
 PASSWORD: 123456
@@ -36,13 +36,13 @@ PASSWORD: 123456
 | `Bootstrap Vue` | Framework for interface development |
 
 ## 4. Project Installation
-If you want to download the project to your desktop it is possible to create a fork of the repository and after that, you should perform a "clone" or "donwload" of the **link provided by your repository** then type in your terminal:
+If you want to download the project to your desktop, it is possible to create a fork of the repository and, after that, you should perform a "clone" or "download" of the **link provided by your repository** then type in your terminal:
 
   `git clone <collect your link after that>`
   
 The repository will be completely downloaded on your machine.
 
-If you don't have Node.js installed, just click on this link [here](https://nodejs.org/en/download/) and download it, because to run it on your computer, you will need to perform the node modules folder installation, using NPM (native Node.js).
+If you don't have Node.js installed, just click on this link [here](https://nodejs.org/en/download/) and download it. It is a requirement to be able to run it on your computer and you will need to perform the node modules folder installation, using NPM (native Node.js).
 
 ### Once the installation is complete, just type in your terminal:
 ```
